@@ -13,41 +13,10 @@ export default function email() {
       <form action={action} className="flex flex-col gap-3">
         <Input
           name="email" 
-          type="email" 
+          type="text" 
           placeholder="Email" 
-          required
           errors={state?.fieldErrors.email} />
-        <Input
-          name="first_name" 
-          type="text" 
-          placeholder="Your first name"
-          required
-          errors={state?.fieldErrors.firstname} />
-        <Input
-          name="last_name" 
-          type="text"
-          placeholder="Your last name"
-          required
-          errors={state?.fieldErrors.lastname} />
-        <Input
-          name="nickname" 
-          type="text" 
-          placeholder="Your nickname"
-          required 
-          errors={state?.fieldErrors.nickname} />
-        <Input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          errors={state?.fieldErrors.password} />
-        <Input
-          name="confirm_password"
-          type="password"
-          placeholder="Confirm Password"
-          required
-          errors={state?.fieldErrors.confirm_password}/>
-        <Button text="create account" />
+        <Button text="create email" />
       </form>
       <SocialLogin />
     </div>

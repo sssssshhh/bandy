@@ -1,25 +1,8 @@
 "use server";
 
-import db from "@/lib/db";
 import { z } from "zod";
 
 const PASSWORD_MIN_LENGTH = 4;
-
-const checkUniqueNickname = async (nickname: string) => {
-  const user = await db.user.findUnique({
-    where: { nickname },
-    select: {id: true},
-  })
-  return !Boolean(user);
-}
-
-const checkUniqueEmail= async (email: string) => {
-  const user = await db.user.findUnique({
-    where: { email },
-    select: {id: true},
-  })
-  return !Boolean(user);
-}
 
 const checkPasswords = ({
   password,
@@ -32,27 +15,9 @@ const checkPasswords = ({
 const formSchema = z
   .object({
     firstname: z
-      .string({
-        required_error: "Where is your firstname???",
-      })
-      .toLowerCase(),
+      .string().min(1, "Please let me know your firstname"),
     lastname: z
-      .string({
-        required_error: "Where is your lastname???",
-      })
-      .toLowerCase(),
-    nickname: z
-      .string({
-        required_error: "Where is your nickname???",
-      })
-      .toLowerCase()
-      .refine(
-        checkUniqueNickname, "This is already used"),
-    email: z.string({
-      required_error: "Where is your email???",
-    })
-    .email()
-    .refine(checkUniqueEmail, "This email is used"),
+      .string().min(1, "Please let me know your lastname"),
     password: z.string().min(PASSWORD_MIN_LENGTH),
     confirm_password: z.string(),
   })
@@ -63,15 +28,14 @@ const formSchema = z
 
 export async function createAccount(prevState: any, formData: FormData) {
   const data = {
-    email: formData.get("email"),
     firstname: formData.get("first_name"),
     lastname: formData.get("last_name"),
-    nickname: formData.get("nickname"),
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
   };
-  const result = await formSchema.safeParseAsync(data);
+  const result = formSchema.safeParse(data);
   if (!result.success) {
+    console.log(result.error.flatten())
     return result.error.flatten();
   }
 }
