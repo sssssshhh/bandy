@@ -4,10 +4,10 @@ import Input from "@/components/input";
 import SocialLogin from "@/components/social-login";
 import { useFormState } from "react-dom";
 import Button from "@/components/button";
-import { createAccountAction } from "./action";
+import { createAccount } from "./action";
 
-export default function createAccount() {
-  const [state, action] = useFormState(createAccountAction, null)
+export default function account() {
+  const [state, action] = useFormState(createAccount, null)
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <form action={action} className="flex flex-col gap-3">
