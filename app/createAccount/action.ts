@@ -1,15 +1,25 @@
 "use server";
 
+import db from "@/lib/db";
 import { z } from "zod";
 
 const PASSWORD_MIN_LENGTH = 4;
-const PASSWORD_REGEX = new RegExp(
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*?[#?!@$%^&*-]).+$/
-);
-const PASSWORD_REGEX_ERROR =
-  "Passwords must contain at least one UPPERCASE, lowercase, number and special characters #?!@$%^&*-";
 
-const checkUsername = (username: string) => !username.includes("potato");
+const checkUniqueNickname = async (nickname: string) => {
+  const user = await db.user.findUnique({
+    where: { nickname },
+    select: {id: true},
+  })
+  return !Boolean(user);
+}
+
+const checkUniqueEmail= async (email: string) => {
+  const user = await db.user.findUnique({
+    where: { email },
+    select: {id: true},
+  })
+  return !Boolean(user);
+}
 
 const checkPasswords = ({
   password,
@@ -35,12 +45,16 @@ const formSchema = z
       .string({
         required_error: "Where is your nickname???",
       })
-      .toLowerCase(),
+      .toLowerCase()
+      .refine(
+        checkUniqueNickname, "This is already used"),
     email: z.string({
       required_error: "Where is your email???",
-    }).email().toLowerCase(),
+    })
+    .email()
+    .refine(checkUniqueEmail, "This email is used"),
     password: z.string().min(PASSWORD_MIN_LENGTH),
-    confirm_password: z.string().min(PASSWORD_MIN_LENGTH),
+    confirm_password: z.string(),
   })
   .refine(checkPasswords, {
     message: "Both passwords should be the same!",
@@ -56,7 +70,7 @@ export async function createAccountAction(prevState: any, formData: FormData) {
     password: formData.get("password"),
     confirm_password: formData.get("confirm_password"),
   };
-  const result = await formSchema.spa(data);
+  const result = await formSchema.safeParseAsync(data);
   if (!result.success) {
     return result.error.flatten();
   }
