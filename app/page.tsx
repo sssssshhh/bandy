@@ -3,11 +3,11 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div>
-      <Link href="/signin"
-        className="w-full bg-orange-500 text-white text-lg">Signin
+      <Link href="/createAccount"
+        className="w-full bg-orange-500 text-white text-lg">createAccount
       </Link>
-      <Link href="/signup"
-        className="w-full bg-orange-500 text-white text-lg">Signup
+      <Link href="/login"
+        className="w-full bg-orange-500 text-white text-lg">login
       </Link>
     </div>
   );
