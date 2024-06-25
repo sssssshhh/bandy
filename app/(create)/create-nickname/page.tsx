@@ -3,7 +3,7 @@
 import Input from "@/components/input";
 import { useFormState } from "react-dom";
 import Button from "@/components/button";
-import { createNickname } from "./action";
+import { createNickname } from "./actions";
 
 export default function nickname() {
   const [state, action] = useFormState(createNickname, null)
