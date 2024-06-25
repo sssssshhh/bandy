@@ -1,5 +1,6 @@
 "use server";
 
+import getSession from "@/lib/session";
 import { z } from "zod";
 
 const PASSWORD_MIN_LENGTH = 4;
@@ -37,5 +38,7 @@ export async function createAccount(prevState: any, formData: FormData) {
   if (!result.success) {
     console.log(result.error.flatten())
     return result.error.flatten();
+  } else {
+
   }
 }
