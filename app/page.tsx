@@ -12,6 +12,9 @@ export default function Home() {
       <Link href="/create-nickname"
         className="w-full bg-orange-500 text-white text-lg">createNickname
       </Link>
+      <Link href="/lectures"
+        className="w-full bg-orange-500 text-white text-lg">lectures
+      </Link>
     </div>
   );
 }
