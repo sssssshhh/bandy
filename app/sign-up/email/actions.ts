@@ -15,8 +15,8 @@ const checkUniqueEmail= async (email: string) => {
 
 const formSchema = z
   .object({
-    email: z.string()
-    .email("Please check if it is correct email")
+    email: z
+    .string().trim().min(1, "Please let me know your email")
     .refine(checkUniqueEmail, "Sorry, This email is being used"),
   });
 

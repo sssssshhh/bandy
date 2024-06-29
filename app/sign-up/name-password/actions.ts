@@ -17,14 +17,14 @@ const checkPasswords = ({
 const formSchema = z
   .object({
     firstname: z
-      .string().min(1, "Please let me know your firstname"),
+      .string(),
     lastname: z
-      .string().min(1, "Please let me know your lastname"),
-    password: z.string().min(PASSWORD_MIN_LENGTH),
-    confirm_password: z.string(),
+      .string().trim().min(1, "Please let me know your lastname"),
+    password: z.string().trim().min(PASSWORD_MIN_LENGTH),
+    confirm_password: z.string().trim()
   })
   .refine(checkPasswords, {
-    message: "Both passwords should be the same!",
+    message: "Both passwords should be the same",
     path: ["confirm_password"],
   });
 

@@ -16,22 +16,9 @@ const checkUniqueNickname = async (nickname: string) => {
 const formSchema = z
   .object({
     nickname: z
-      .string()
-      .superRefine((arg, ctx) => {
-        // TODO: use requied("")
-        if(arg.trim() === ""){
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: "Please let me know your nickname",
-          });
-        } else if (!checkUniqueNickname(arg)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Sorry, This nickname is being used",
-        });
-      }
-  })
-});
+    .string().trim().min(1, "Please let me know your nickname")
+    .refine(checkUniqueNickname, "Sorry, This nickname is being used"),
+  });
 
 export async function createNickname(prevState: any, formData: FormData) {
   const data = {

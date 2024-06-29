@@ -11,12 +11,12 @@ export default function Account() {
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <div>Sign Up</div>
-      <div>Think in Korean like a Native with Lang-wich!</div>
+      <div>Think in Korean like a Native with Bandy!</div>
       <SocialLogin />
         <form action={email} className="flex flex-col gap-3">
           <Input
             name="email"
-            type="text"
+            type="email"
             placeholder="Email"
             errors={state?.fieldErrors.email} />
           <Button text="Continue" />

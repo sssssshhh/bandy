@@ -20,13 +20,13 @@ export async function middleware(request: NextRequest) {
   if (!session.id) {
     // Restrict user page access with signin or login
     if (!exists) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(new URL("/sign-in", request.url));
     }
   } else {
-    // if (exists) {
-    //   // With session, no need to login and signin
-    //   return NextResponse.redirect(new URL("/", request.url));
-    // }
+    if (exists) {
+      // With session, no need to login and signin
+      return NextResponse.redirect(new URL("/lectures", request.url));
+    }
   }
 }
 
