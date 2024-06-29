@@ -15,7 +15,7 @@ export default function nickname() {
           type="text" 
           placeholder="Your nickname"
           errors={state?.fieldErrors.nickname} />
-        <Button text="create nickname" />
+        <Button text="Continue" />
       </form>
     </div>
   );

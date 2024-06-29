@@ -9,7 +9,9 @@ const publicOnlyUrls: Routes = {
   "/": true,
   "/sign-up": true,
   "/sign-in": true,
-  "/sign-up/account": true,
+  "/sign-up/email": true,
+  "/sign-up/name-password": true,
+  "/sign-up/nickname": true,
 };
 
 export async function middleware(request: NextRequest) {
@@ -21,10 +23,10 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   } else {
-    if (exists) {
-      // With session, no need to login and signin
-      return NextResponse.redirect(new URL("/", request.url));
-    }
+    // if (exists) {
+    //   // With session, no need to login and signin
+    //   return NextResponse.redirect(new URL("/", request.url));
+    // }
   }
 }
 

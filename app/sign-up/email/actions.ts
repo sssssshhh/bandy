@@ -1,8 +1,9 @@
 "use server";
 
-import db from "@/lib/db";
 import getSession from "@/lib/session";
+import db from "@/lib/db";
 import { z } from "zod";
+import { redirect } from "next/navigation";
 
 const checkUniqueEmail= async (email: string) => {
   const user = await db.user.findUnique({
@@ -19,7 +20,7 @@ const formSchema = z
     .refine(checkUniqueEmail, "Sorry, This email is being used"),
   });
 
-export async function CreateEmail(prevState: any, formData: FormData) {
+export async function createEmail(prevState: any, formData: FormData) {
   const data = {
     email: formData.get("email"),
   };
@@ -27,16 +28,9 @@ export async function CreateEmail(prevState: any, formData: FormData) {
   if (!result.success) {
     return result.error.flatten();
   } else {
-    const user = await db.user.create({
-      data: {
-        email: result.data.email,
-      },
-      select: {
-        id: true,
-      },
-    });
     const session = await getSession();
-    session.id = user.id;
+    session.email = result.data.email;
     await session.save();
+    redirect("/sign-up/name-password");
   }
 }

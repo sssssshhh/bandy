@@ -1,6 +1,7 @@
 "use server";
 
 import getSession from "@/lib/session";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const PASSWORD_MIN_LENGTH = 4;
@@ -27,7 +28,7 @@ const formSchema = z
     path: ["confirm_password"],
   });
 
-export async function createAccount(prevState: any, formData: FormData) {
+export async function CreateNamePasssword(prevState: any, formData: FormData) {
   const data = {
     firstname: formData.get("first_name"),
     lastname: formData.get("last_name"),
@@ -36,9 +37,13 @@ export async function createAccount(prevState: any, formData: FormData) {
   };
   const result = formSchema.safeParse(data);
   if (!result.success) {
-    console.log(result.error.flatten())
     return result.error.flatten();
   } else {
-
+    const session = await getSession();
+    session.firstName = result.data.firstname;
+    session.lastName = result.data.lastname;
+    session.password = result.data.password;
+    await session.save();
+    redirect("/sign-up/nickname");
   }
 }
