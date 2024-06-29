@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex flex-col gap-10">
-      <Link href="/create-account"
+      {/* <Link href="/create-account"
         className="w-full bg-orange-500 text-white text-lg">createAccount
       </Link>
       <Link href="/create-email"
@@ -14,7 +14,7 @@ export default function Home() {
       </Link>
       <Link href="/lectures"
         className="w-full bg-orange-500 text-white text-lg">lectures
-      </Link>
+      </Link> */}
     </div>
   );
 }

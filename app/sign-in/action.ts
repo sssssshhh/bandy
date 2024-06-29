@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 
-
 const formSchema = z
   .object({
     email: z.string({
@@ -11,7 +10,7 @@ const formSchema = z
     password: z.string()
   });
 
-export async function LoginAction(prevState: any, formData: FormData) {
+export async function SigninAction(prevState: any, formData: FormData) {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),

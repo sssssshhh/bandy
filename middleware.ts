@@ -6,20 +6,23 @@ interface Routes {
 }
 
 const publicOnlyUrls: Routes = {
-  "/create/account": true,
-  "/create/email": true,
-  "/create/nickname": true,
+  "/": true,
+  "/sign-up": true,
+  "/sign-in": true,
+  "/sign-up/account": true,
 };
 
 export async function middleware(request: NextRequest) {
   const session = await getSession();
   const exists = publicOnlyUrls[request.nextUrl.pathname];
   if (!session.id) {
+    // Restrict user page access with signin or login
     if (!exists) {
-      return NextResponse.redirect(new URL("/", request.url));
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   } else {
     if (exists) {
+      // With session, no need to login and signin
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
