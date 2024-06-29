@@ -13,7 +13,7 @@ export default function Singin() {
       <form action={action} className="flex flex-col gap-3">
         <Input
           name="email" 
-          type="email" 
+          type="email"
           placeholder="Email" 
           required
           errors={state?.fieldErrors.email} />

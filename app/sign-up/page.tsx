@@ -6,7 +6,7 @@ export default function SignUp(){
     <div className="flex flex-col gap-5 items-center justify-center">
         <FaceSmileIcon className="w-20"></FaceSmileIcon>
         <div>Think in Korean like native</div>
-        <Link href="/sign-up/account">Sign in for free</Link>
+        <Link href="/sign-up/email">Sign in for free</Link>
         <div className="flex flex-row">
             <span>Already signed up?</span>
             <Link href="/sign-in">sign in</Link>

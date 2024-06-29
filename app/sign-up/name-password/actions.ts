@@ -1,5 +1,5 @@
 "use server";
-
+import bcrypt from "bcrypt";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -39,11 +39,12 @@ export async function CreateNamePasssword(prevState: any, formData: FormData) {
   if (!result.success) {
     return result.error.flatten();
   } else {
+    const hashedPassword = await bcrypt.hash(result.data.password, 12);
     const session = await getSession();
     session.firstName = result.data.firstname;
     session.lastName = result.data.lastname;
-    session.password = result.data.password;
+    session.password = hashedPassword;
     await session.save();
-    redirect("/sign-up/nickname");
+   redirect("/sign-up/nickname");
   }
 }
