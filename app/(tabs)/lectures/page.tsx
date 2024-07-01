@@ -1,4 +1,5 @@
 import ListLecture from "@/components/listLecture";
+import TabBar from "@/components/tab-bar";
 import db from "@/lib/db";
 
 async function getLectures(){
@@ -19,9 +20,17 @@ async function getLectures(){
 
 export default async function lectures(){
     const lectures = await getLectures();
-    return <div className="flex flex-col gap-1">
-        {lectures.map(lecture => (
-            <ListLecture key={lecture.id} {...lecture}/>
-        ))}
-    </div>
+    return (
+        <div>
+            <span>lectures</span>
+            <TabBar></TabBar>
+        </div>
+    ) 
+    
+    
+    // <div className="flex flex-col gap-1">
+    //     {lectures.map(lecture => (
+    //         <ListLecture key={lecture.id} {...lecture}/>
+    //     ))}
+    // </div>
 }

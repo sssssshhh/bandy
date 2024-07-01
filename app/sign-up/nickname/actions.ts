@@ -51,6 +51,6 @@ export async function createNickname(prevState: any, formData: FormData) {
     session.email = "";
 
     await session.save();
-    redirect("/sign-in")
+    redirect("/lectures")
   }
 }
