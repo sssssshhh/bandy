@@ -6,13 +6,14 @@ import Button from "@/components/button";
 import { CreateNamePasssword } from "./actions";
 
 export default function namePassword() {
-  const [state, action] = useFormState(CreateNamePasssword, null)
+  const [state, action] = useFormState(CreateNamePasssword, null);
+
   return (
     <div className="flex flex-col gap-10 py-8 px-6">
       <form action={action} className="flex flex-col gap-3">
         <Input
           name="first_name" 
-          type="text" 
+        type="text" 
           placeholder="First name"
           errors={state?.fieldErrors.firstname} />
         <Input
