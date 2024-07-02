@@ -45,10 +45,7 @@ export async function createNickname(prevState: any, formData: FormData) {
     });
 
     session.id = user.id;
-    session.firstName = "";
-    session.lastName = "";
-    session.password = "";
-    session.email = "";
+    session.nickname = result.data.nickname;
 
     await session.save();
     redirect("/lectures")

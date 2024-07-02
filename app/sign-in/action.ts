@@ -34,7 +34,9 @@ export async function SigninAction(prevState: any, formData: FormData) {
       },
       select: {
           password: true,
-          id: true
+          id: true,
+          nickname: true,
+          email: true,
       }
     });
 
@@ -43,6 +45,8 @@ export async function SigninAction(prevState: any, formData: FormData) {
     if(ok){
       const session = await getSession();
       session.id = user!.id;
+      session.nickname = user!.nickname;
+      session.email = user!.email;
       await session.save();
       redirect("/lectures");
     } else {

@@ -3,10 +3,11 @@ import { cookies } from "next/headers";
 
 interface SessionContent {
   id?: number;
-  email? : string;
+  email : string;
   firstName?: string;
   lastName?: string;
   password?: string;
+  nickname?: string;
 }
 
 export default function getSession() {
